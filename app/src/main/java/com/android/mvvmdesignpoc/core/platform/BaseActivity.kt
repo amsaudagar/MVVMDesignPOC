@@ -1,24 +1,28 @@
 package com.android.mvvmdesignpoc.core.platform
 
-import android.app.ProgressDialog
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.android.mvvmdesignpoc.R
 import com.android.mvvmdesignpoc.R.id
 import com.android.mvvmdesignpoc.R.layout
+import com.android.mvvmdesignpoc.core.extension.gone
 import com.android.mvvmdesignpoc.core.extension.inTransaction
+import com.android.mvvmdesignpoc.core.extension.visible
+import kotlinx.android.synthetic.main.activity_layout.*
 
 /**
  * Represents the base activity which will provide common features to all child activities
  */
 abstract class BaseActivity : AppCompatActivity() {
 
-    private var dialog : ProgressDialog? = null
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         setContentView(layoutId())
+
+        GlideApp.with(this).asGif()
+            .load(R.drawable.loader)
+            .into(ivProgress)
 
         init()
 
@@ -63,33 +67,11 @@ abstract class BaseActivity : AppCompatActivity() {
         }
     }
 
-    /**
-     * Displays the progress dialog
-     */
-    fun showProgressDialog() {
-        if (dialog == null) {
-            this@BaseActivity.let {
-                createDialog()
-                if (!it.isFinishing && !it.isDestroyed) {
-                    dialog?.show()
-                }
-            }
-        }
+    fun showProgress() {
+        ivProgress.visible()
     }
 
-    /**
-     * Hides the progress dialog
-     */
-    fun hideProgressDialog() {
-        if (dialog?.isShowing == true) {
-            dialog?.dismiss()
-        }
-        dialog = null
-    }
-
-    private fun createDialog() {
-        dialog = ProgressDialog(this@BaseActivity)
-        dialog?.setTitle(getString(R.string.loading))
-        dialog?.setCancelable(false)
+    fun hideProgress() {
+        ivProgress.gone()
     }
 }

@@ -2,8 +2,12 @@ package com.android.mvvmdesignpoc.core.di
 
 import com.android.mvvmdesignpoc.core.navigation.Navigator
 import com.android.mvvmdesignpoc.core.platform.NetworkHandler
+import com.android.mvvmdesignpoc.features.dashboard.data.CountryDetailsRepository
 import com.android.mvvmdesignpoc.features.dashboard.data.remote.CountryDetailsService
+import com.android.mvvmdesignpoc.features.dashboard.usecase.CountryDetailsUseCase
+import com.android.mvvmdesignpoc.features.dashboard.viewmodel.CountryDetailsViewModel
 import okhttp3.OkHttpClient
+import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -40,4 +44,10 @@ val applicationModule = module {
     factory { NetworkHandler(get()) }
     factory { CountryDetailsService(get()) }
     single { Navigator() }
+}
+
+val dashboardModule = module {
+    single { CountryDetailsRepository.CountryDetailsRepositoryImp(get(), get()) as CountryDetailsRepository }
+    single { CountryDetailsUseCase(get()) }
+    viewModel { CountryDetailsViewModel(get()) }
 }

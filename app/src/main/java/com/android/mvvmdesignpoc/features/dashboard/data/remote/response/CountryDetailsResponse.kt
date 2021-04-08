@@ -3,11 +3,11 @@ package com.android.mvvmdesignpoc.features.dashboard.data.remote.response
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
-data class CountryDetails(
+data class CountryDetailsResponse(
 
     @SerializedName("title")
     @Expose
-    var sessionId: String? = "",
+    var title: String? = "",
 
     @SerializedName("rows")
     @Expose
@@ -15,7 +15,7 @@ data class CountryDetails(
 
 ) {
     companion object {
-        fun empty() = CountryDetails()
+        fun empty() = CountryDetailsResponse()
     }
 }
 
@@ -23,12 +23,12 @@ data class Row(
 
     @SerializedName("title")
     @Expose
-    var title: String = "",
+    var title: String? = "",
 
     @SerializedName("description")
     @Expose
-    var description: String = "",
+    var description: String? = "",
 
     @SerializedName("imageHref")
     @Expose
-    var imageHref: String = "")
+    var imageHref: String? = "")

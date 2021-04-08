@@ -3,6 +3,7 @@ package com.android.mvvmdesignpoc
 import android.app.Application
 import android.content.Context
 import com.android.mvvmdesignpoc.core.di.applicationModule
+import com.android.mvvmdesignpoc.core.di.dashboardModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
@@ -34,6 +35,6 @@ class POCApp : Application() {
             androidContext(this@POCApp.applicationContext)
 
             // module list
-            modules(listOf(applicationModule))
+            modules(listOf(applicationModule, dashboardModule))
         }
 }

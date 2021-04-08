@@ -1,6 +1,6 @@
 package com.android.mvvmdesignpoc.features.dashboard.data.remote
 
-import com.android.mvvmdesignpoc.features.dashboard.data.remote.response.CountryDetails
+import com.android.mvvmdesignpoc.features.dashboard.data.remote.response.CountryDetailsResponse
 import retrofit2.Call
 import retrofit2.http.GET
 
@@ -10,5 +10,5 @@ internal interface CountryDetailsApi {
     }
 
     @GET(GET_COUNTRY_DETAILS)
-    fun getCountryDetails(): Call<CountryDetails>
+    fun getCountryDetails(): Call<CountryDetailsResponse>
 }

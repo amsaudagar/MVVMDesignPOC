@@ -3,7 +3,7 @@ package com.android.mvvmdesignpoc.features.dashboard.viewmodel
 import androidx.lifecycle.MutableLiveData
 import com.android.mvvmdesignpoc.core.interactor.UseCase
 import com.android.mvvmdesignpoc.core.platform.BaseViewModel
-import com.android.mvvmdesignpoc.features.dashboard.data.remote.response.CountryDetails
+import com.android.mvvmdesignpoc.features.dashboard.data.remote.response.CountryDetailsResponse
 import com.android.mvvmdesignpoc.features.dashboard.usecase.CountryDetailsUseCase
 
 /**
@@ -12,7 +12,7 @@ import com.android.mvvmdesignpoc.features.dashboard.usecase.CountryDetailsUseCas
 class CountryDetailsViewModel
 constructor(private val countryDetailsUseCase : CountryDetailsUseCase) : BaseViewModel() {
 
-    var countryDetails: MutableLiveData<CountryDetails> = MutableLiveData()
+    var countryDetails: MutableLiveData<CountryDetailsResponse> = MutableLiveData()
 
     /**
      * Fetches the country details
@@ -22,7 +22,7 @@ constructor(private val countryDetailsUseCase : CountryDetailsUseCase) : BaseVie
         it.either(::handleFailure, ::handleDropDownResponse)
     }
 
-    private fun handleDropDownResponse(dropDownResponse: CountryDetails?) {
+    private fun handleDropDownResponse(dropDownResponse: CountryDetailsResponse?) {
         countryDetails.value = dropDownResponse
     }
 }

@@ -1,4 +1,6 @@
 <resources>
     <string name="app_name">MVVMDesignPOC</string>
     <string name="loading">Loading...</string>
+    <string name="connection_failure">Connection failure</string>
+    <string name="home">Home</string>
 </resources>
