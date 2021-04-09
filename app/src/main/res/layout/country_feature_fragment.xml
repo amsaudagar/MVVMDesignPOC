@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/lightGray"
+    android:orientation="vertical">
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/txtTitle"
+        style="@style/ScreenTitleStyle"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/screen_title_height"
+        android:gravity="center_vertical"
+        android:padding="@dimen/dim_standard_x10"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:text="@string/home"
+        tools:text="Title of Screen" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/image"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/dim_standard_x5"
+        android:scaleType="fitCenter"
+        android:layout_margin="@dimen/dim_standard_x10"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/txtTitle"
+        app:srcCompat="@drawable/default_image" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/txtDescription"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dim_standard_x10"
+        android:textColor="@color/black"
+        android:textSize="@dimen/_16sp"
+        android:layout_marginStart="@dimen/dim_standard_x10"
+        android:layout_marginEnd="@dimen/dim_standard_x10"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/image"
+        tools:text="Description D e s c r i p t i on " />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
