@@ -19,10 +19,10 @@ constructor(private val countryDetailsUseCase : CountryDetailsUseCase) : BaseVie
      */
     fun getCountryDetails()
             = countryDetailsUseCase(UseCase.None()) {
-        it.either(::handleFailure, ::handleDropDownResponse)
+        it.either(::handleFailure, ::handleCountryDetailsResponse)
     }
 
-    private fun handleDropDownResponse(dropDownResponse: CountryDetailsResponse?) {
-        countryDetails.value = dropDownResponse
+    private fun handleCountryDetailsResponse(countryDetailsResponse: CountryDetailsResponse?) {
+        countryDetails.value = countryDetailsResponse
     }
 }
