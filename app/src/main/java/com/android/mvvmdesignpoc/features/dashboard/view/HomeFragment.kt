@@ -52,6 +52,12 @@ class HomeFragment : BaseFragment() {
 
     private fun handleCountryDetailsSuccess(countryDetails: CountryDetailsResponse?) {
         hideProgressDialog()
+        //Removes all the elements with all empty or null details
+        countryDetails?.rows?.apply {
+            countryDetails.rows.removeIf { it.title.isNullOrEmpty() &&
+                    it.description.isNullOrEmpty()
+                    && it.imageHref.isNullOrEmpty()}
+        }
         rvCountryDetails.adapter = CountryDetailsAdapter(requireActivity(), countryDetails?.rows?: arrayListOf())
 
         txtTitle.text = countryDetails?.title?:""
