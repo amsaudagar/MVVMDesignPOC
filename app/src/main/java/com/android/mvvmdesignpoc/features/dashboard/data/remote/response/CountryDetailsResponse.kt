@@ -1,7 +1,9 @@
 package com.android.mvvmdesignpoc.features.dashboard.data.remote.response
 
+import android.os.Parcelable
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
+import kotlinx.android.parcel.Parcelize
 
 data class CountryDetailsResponse(
 
@@ -19,6 +21,7 @@ data class CountryDetailsResponse(
     }
 }
 
+@Parcelize
 data class Row(
 
     @SerializedName("title")
@@ -31,4 +34,4 @@ data class Row(
 
     @SerializedName("imageHref")
     @Expose
-    var imageHref: String? = "")
+    var imageHref: String? = "") : Parcelable

@@ -26,7 +26,6 @@ fun View.gone() {
 fun ImageView.loadFromUrl(url: String, placeholder: Int, errorPlaceholder: Int) =
     GlideApp.with(this.context.applicationContext)
         .load(url)
-        .circleCrop()
         .placeholder(placeholder)
         .error(errorPlaceholder)
         .into(this)

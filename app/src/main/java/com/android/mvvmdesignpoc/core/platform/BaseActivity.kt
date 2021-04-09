@@ -3,10 +3,8 @@ package com.android.mvvmdesignpoc.core.platform
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.android.mvvmdesignpoc.R
-import com.android.mvvmdesignpoc.R.id
 import com.android.mvvmdesignpoc.R.layout
 import com.android.mvvmdesignpoc.core.extension.gone
-import com.android.mvvmdesignpoc.core.extension.inTransaction
 import com.android.mvvmdesignpoc.core.extension.visible
 import kotlinx.android.synthetic.main.activity_layout.*
 
@@ -25,8 +23,6 @@ abstract class BaseActivity : AppCompatActivity() {
             .into(ivProgress)
 
         init()
-
-        addFragment()
     }
 
     /**
@@ -45,33 +41,16 @@ abstract class BaseActivity : AppCompatActivity() {
     abstract fun init()
 
     /**
-     * Adds the default fragment
+     * Displays the progress dialog
      */
-    open fun addFragment() {
-        val fragment = fragment()
-        if(fragment != null) {
-            supportFragmentManager.inTransaction {
-                add(id.fragmentContainer, fragment)
-            }
-        }
+    fun showProgress() {
+        ivProgress?.visible()
     }
 
     /**
-     * Adds the given fragment
-     *
-     * @return fragment - fragment to be added
+     * Hides the progress dialog
      */
-    fun addFragment(fragment: BaseFragment) {
-        supportFragmentManager.inTransaction {
-            add(id.fragmentContainer, fragment)
-        }
-    }
-
-    fun showProgress() {
-        ivProgress.visible()
-    }
-
     fun hideProgress() {
-        ivProgress.gone()
+        ivProgress?.gone()
     }
 }

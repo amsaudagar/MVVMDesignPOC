@@ -14,9 +14,17 @@ import com.android.mvvmdesignpoc.features.dashboard.data.remote.response.Row
 import kotlinx.android.synthetic.main.row_item_view.view.*
 
 class CountryDetailsAdapter(private val context: Context,
-                            private val list: ArrayList<Row>) : RecyclerView.Adapter<CountryDetailsAdapter.CountryDetailRowViewHolder>() {
+                            private val list: ArrayList<Row>,
+                            private val itemSelectListener : IOnItemSelectListener) : RecyclerView.Adapter<CountryDetailsAdapter.CountryDetailRowViewHolder>() {
 
     private var inflater: LayoutInflater? = null
+
+    /**
+     * Callback interface to display country feature details
+     */
+    interface IOnItemSelectListener {
+        fun onRowItemSelected(row : Row)
+    }
 
     override fun getItemId(position: Int): Long {
         return position.toLong()
@@ -42,7 +50,9 @@ class CountryDetailsAdapter(private val context: Context,
             viewHolder.image.loadFromUrl(row.imageHref!!, R.drawable.default_loader, R.drawable.default_image)
         }
 
-        viewHolder.itemView.tag = list[position]
+        viewHolder.itemView.setOnClickListener {
+            itemSelectListener.onRowItemSelected(list[position])
+        }
     }
 
     inner class CountryDetailRowViewHolder internal constructor(itemView: View) : RecyclerView.ViewHolder(itemView) {

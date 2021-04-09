@@ -2,12 +2,14 @@ package com.android.mvvmdesignpoc.features.dashboard.view
 
 import android.os.Bundle
 import android.view.View
+import androidx.navigation.fragment.findNavController
 import com.android.mvvmdesignpoc.R
 import com.android.mvvmdesignpoc.core.exception.Failure
 import com.android.mvvmdesignpoc.core.extension.failure
 import com.android.mvvmdesignpoc.core.extension.observe
 import com.android.mvvmdesignpoc.core.platform.BaseFragment
 import com.android.mvvmdesignpoc.features.dashboard.data.remote.response.CountryDetailsResponse
+import com.android.mvvmdesignpoc.features.dashboard.data.remote.response.Row
 import com.android.mvvmdesignpoc.features.dashboard.viewmodel.CountryDetailsViewModel
 import kotlinx.android.synthetic.main.home_fragment.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -15,10 +17,11 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 /**
  * Represents the fragment for home screen
  */
-class HomeFragment : BaseFragment() {
+class HomeFragment : BaseFragment(), CountryDetailsAdapter.IOnItemSelectListener {
 
     companion object {
         const val REFRESH_TIME = 20000 // 20 secs
+        const val ROW_ITEM = "ROW_ITEM"
     }
     private var timeStamp = System.currentTimeMillis()
 
@@ -50,6 +53,12 @@ class HomeFragment : BaseFragment() {
         }
     }
 
+    override fun onRowItemSelected(row: Row) {
+        val bundle = Bundle()
+        bundle.putParcelable(ROW_ITEM, row)
+        findNavController().navigate(R.id.action_homeFragment_to_countryFeatureFragment, bundle)
+    }
+
     private fun handleCountryDetailsSuccess(countryDetails: CountryDetailsResponse?) {
         hideProgressDialog()
         //Removes all the elements with all empty or null details
@@ -58,7 +67,8 @@ class HomeFragment : BaseFragment() {
                     it.description.isNullOrEmpty()
                     && it.imageHref.isNullOrEmpty()}
         }
-        rvCountryDetails.adapter = CountryDetailsAdapter(requireActivity(), countryDetails?.rows?: arrayListOf())
+        rvCountryDetails.adapter = CountryDetailsAdapter(requireActivity(),
+            countryDetails?.rows?: arrayListOf(), this)
 
         txtTitle.text = countryDetails?.title?:""
 
