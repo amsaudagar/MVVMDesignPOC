@@ -28,6 +28,7 @@ class CountryFeaturesFragment : BaseFragment() {
             } else {
                 image.loadFromUrl(row.imageHref!!, R.drawable.default_loader, R.drawable.default_image)
             }
+            image.contentDescription = row.imageHref?:""
         }
     }
 }

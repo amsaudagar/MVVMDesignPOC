@@ -3,7 +3,7 @@ package com.android.mvvmdesignpoc.feature.dashboard.usecase
 import com.android.mvvmdesignpoc.core.exception.Failure
 import com.android.mvvmdesignpoc.core.functional.Either
 import com.android.mvvmdesignpoc.core.interactor.UseCase
-import com.android.mvvmdesignpoc.feature.dashboard.viewmodel.TestCoroutineRule
+import com.android.mvvmdesignpoc.feature.dashboard.TestCoroutineRule
 import com.android.mvvmdesignpoc.features.dashboard.data.CountryDetailsRepository
 import com.android.mvvmdesignpoc.features.dashboard.data.remote.response.CountryDetailsResponse
 import com.android.mvvmdesignpoc.features.dashboard.data.remote.response.Row
@@ -23,7 +23,8 @@ class CountryDetailsUseCaseTest {
 
     @ExperimentalCoroutinesApi
     @get:Rule
-    val testCoroutineRule = TestCoroutineRule()
+    val testCoroutineRule =
+        TestCoroutineRule()
 
     @Before
     fun init() {
@@ -59,12 +60,21 @@ class CountryDetailsUseCaseTest {
                     response = countryDetails
                 })
 
+                //Verify the title
                 Assert.assertEquals(expectedTitle, response?.title)
+
+                //Verify that rows is not empty and has some valid row data
                 Assert.assertTrue(response?.rows?.isNotEmpty() == true)
+
+                //Verify no of rows available in the response
                 Assert.assertEquals(1, response?.rows?.size)
+
+                //Verify the details for the first row
                 Assert.assertEquals(title, response?.rows?.get(0)?.title)
                 Assert.assertEquals(description, response?.rows?.get(0)?.description)
                 Assert.assertEquals(imageHref, response?.rows?.get(0)?.imageHref)
+
+                //Verify that there is no failure
                 Assert.assertNull(failureResponse)
             }
         }
@@ -93,6 +103,30 @@ class CountryDetailsUseCaseTest {
                 Assert.assertNull(response)
                 Assert.assertTrue(failureResponse is Failure.FeatureFailure)
                 Assert.assertEquals(expectedStatus, (failureResponse as Failure.FeatureFailure).code)
+            }
+        }
+    }
+
+    @ExperimentalCoroutinesApi
+    @Test
+    fun getCountryDetailsTest_no_internet() {
+        testCoroutineRule.runBlockingTest {
+            val repository = Mockito.mock(CountryDetailsRepository::class.java)
+            val noInternet = Failure.NetworkConnection()
+            `when`(repository.getCountryDetails()).thenReturn(Either.Left(noInternet))
+
+            val countryDetailsUseCase = CountryDetailsUseCase(repository)
+            var response: CountryDetailsResponse? = null
+            var failureResponse: Failure? = null
+
+            countryDetailsUseCase(UseCase.None()) {
+                it.either(fun(failure: Failure) {
+                    failureResponse = failure
+                }, fun(countryDetails: CountryDetailsResponse?) {
+                    response = countryDetails
+                })
+                Assert.assertNull(response)
+                Assert.assertTrue(failureResponse is Failure.NetworkConnection)
             }
         }
     }

@@ -70,7 +70,7 @@ class HomeFragment : BaseFragment(), CountryDetailsAdapter.IOnItemSelectListener
         rvCountryDetails.adapter = CountryDetailsAdapter(requireActivity(),
             countryDetails?.rows?: arrayListOf(), this)
 
-        txtTitle.text = countryDetails?.title?:""
+        txtScreenTitle.text = countryDetails?.title?:""
 
         swipeRefreshLayout.isRefreshing = false
         timeStamp = System.currentTimeMillis()

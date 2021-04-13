@@ -1,7 +1,9 @@
-package com.android.mvvmdesignpoc.feature.dashboard.viewmodel
+package com.android.mvvmdesignpoc.feature.dashboard
 
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.ObsoleteCoroutinesApi
+import kotlinx.coroutines.newSingleThreadContext
 import kotlinx.coroutines.test.*
 import org.junit.rules.TestRule
 import org.junit.runner.Description
@@ -14,10 +16,13 @@ class TestCoroutineRule : TestRule {
 
     private val testCoroutineScope = TestCoroutineScope(testCoroutineDispatcher)
 
+    @ObsoleteCoroutinesApi
+    private val mainThreadSurrogate = newSingleThreadContext("UI thread")
+
     override fun apply(base: Statement, description: Description?) = object : Statement() {
         @Throws(Throwable::class)
         override fun evaluate() {
-            Dispatchers.setMain(testCoroutineDispatcher)
+            Dispatchers.setMain(mainThreadSurrogate)
 
             base.evaluate()
 

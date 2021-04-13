@@ -7,7 +7,7 @@
     android:orientation="vertical">
 
     <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/txtTitle"
+        android:id="@+id/txtScreenTitle"
         style="@style/ScreenTitleStyle"
         android:layout_width="match_parent"
         android:layout_height="@dimen/screen_title_height"

@@ -49,13 +49,15 @@ class CountryDetailsAdapter(private val context: Context,
         } else {
             viewHolder.image.loadFromUrl(row.imageHref!!, R.drawable.default_loader, R.drawable.default_image)
         }
+        viewHolder.image.contentDescription = row.imageHref?:""
 
-        viewHolder.itemView.setOnClickListener {
+        viewHolder.cardView.setOnClickListener {
             itemSelectListener.onRowItemSelected(list[position])
         }
     }
 
     inner class CountryDetailRowViewHolder internal constructor(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        internal var cardView: View = itemView.cardView
         internal var txtTitle: TextView = itemView.txtTitle
         internal var txtDescription: TextView = itemView.txtDescription
         internal var image: ImageView = itemView.image

@@ -1,6 +1,5 @@
 package com.android.mvvmdesignpoc.core.di
 
-import com.android.mvvmdesignpoc.core.navigation.Navigator
 import com.android.mvvmdesignpoc.core.platform.NetworkHandler
 import com.android.mvvmdesignpoc.features.dashboard.data.CountryDetailsRepository
 import com.android.mvvmdesignpoc.features.dashboard.data.remote.CountryDetailsService
@@ -43,7 +42,6 @@ val applicationModule = module {
 
     factory { NetworkHandler(get()) }
     factory { CountryDetailsService(get()) }
-    single { Navigator() }
 }
 
 val dashboardModule = module {
