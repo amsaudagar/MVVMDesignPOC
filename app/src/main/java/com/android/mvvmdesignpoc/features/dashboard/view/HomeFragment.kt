@@ -2,6 +2,7 @@ package com.android.mvvmdesignpoc.features.dashboard.view
 
 import android.os.Bundle
 import android.view.View
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.android.mvvmdesignpoc.R
 import com.android.mvvmdesignpoc.core.exception.Failure
@@ -11,12 +12,13 @@ import com.android.mvvmdesignpoc.core.platform.BaseFragment
 import com.android.mvvmdesignpoc.features.dashboard.data.remote.response.CountryDetailsResponse
 import com.android.mvvmdesignpoc.features.dashboard.data.remote.response.Row
 import com.android.mvvmdesignpoc.features.dashboard.viewmodel.CountryDetailsViewModel
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.home_fragment.*
-import org.koin.androidx.viewmodel.ext.android.viewModel
 
 /**
  * Represents the fragment for home screen
  */
+@AndroidEntryPoint
 class HomeFragment : BaseFragment(), CountryDetailsAdapter.IOnItemSelectListener {
 
     companion object {
@@ -25,7 +27,7 @@ class HomeFragment : BaseFragment(), CountryDetailsAdapter.IOnItemSelectListener
     }
     private var timeStamp = System.currentTimeMillis()
 
-    private val countryDetailsViewModel: CountryDetailsViewModel by viewModel()
+    private val countryDetailsViewModel: CountryDetailsViewModel by viewModels()
 
     override fun layoutId() = R.layout.home_fragment
 

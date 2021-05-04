@@ -2,12 +2,9 @@ package com.android.mvvmdesignpoc
 
 import android.app.Application
 import android.content.Context
-import com.android.mvvmdesignpoc.core.di.applicationModule
-import com.android.mvvmdesignpoc.core.di.dashboardModule
-import org.koin.android.ext.koin.androidContext
-import org.koin.android.ext.koin.androidLogger
-import org.koin.core.context.startKoin
+import dagger.hilt.android.HiltAndroidApp
 
+@HiltAndroidApp
 class POCApp : Application() {
 
     init {
@@ -21,20 +18,4 @@ class POCApp : Application() {
             return instance.applicationContext
         }
     }
-
-    override fun onCreate() {
-        super.onCreate()
-        this.injectMembers()
-    }
-
-    private fun injectMembers() =
-        startKoin {
-            androidLogger()
-
-            // use the Android context given there
-            androidContext(this@POCApp.applicationContext)
-
-            // module list
-            modules(listOf(applicationModule, dashboardModule))
-        }
 }

@@ -1,12 +1,17 @@
 package com.android.mvvmdesignpoc.features.dashboard.data.remote
 
 import retrofit2.Retrofit
+import javax.inject.Inject
 
 /**
  * Service class to call the API
  */
-class CountryDetailsService
-constructor(retrofit: Retrofit) : CountryDetailsApi {
+class CountryDetailsService @Inject
+ constructor(retrofit: Retrofit) : CountryDetailsApi {
+
+    @Inject constructor(retrofit: Retrofit, str : String) {
+
+    }
 
     private val api by lazy { retrofit.create(CountryDetailsApi::class.java) }
 
